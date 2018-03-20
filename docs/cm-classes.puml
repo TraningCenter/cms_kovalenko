@@ -1,0 +1,106 @@
+@startuml
+package ContentManager{  
+    
+    TextMapper --> TextDto
+    TextMapper -left-> Text
+    TextDao *-- TextService
+    TextMapper *-- TextService
+    TextDao -up-> Text
+    TextService -right-> TextDto
+    ContentController -down-* TextService
+    GenericDao <|-- TextDao
+    ContentController -down-* PictureService  
+    PictureService -down-* PictureDao
+    PictureService -down-* PictureMapper
+    PictureService -left-> PictureDto
+    PictureMapper -down-> PictureDto
+    PictureDao -up-|> GenericDao
+    PictureDao -up-> Picture
+    PictureMapper -up-> Picture
+
+    class Text {
+        Integer textId
+        String text
+    }
+    
+    class GenericDao<T,PK>{
+        EntityManager manager
+        Class<T> entityClass
+        void add(T entity)
+        void delete(PK id)
+        List<T> getAll()
+        T getById(PK id)
+    }
+
+    class TextDao {
+        void add(Text text)
+        void delete(Integer id)
+        List<Text> getAll()
+        Text getById(Integer id)
+        Text getByPostId(Integer postId)
+    }
+    
+    class TextDto {
+        Integer textId
+        String text
+    }
+
+    class TextMapper{
+        Text textDtoToText(TextDto textDto)
+        TextDTO textToTextDto(Text text)
+    }
+    
+    class TextService {
+        TextDao dao
+        TextMapper mapper
+        void add(TextDto text)
+        void delete(Integer id)
+        List<TextDto> getAll()
+        Text getById(Integer id)
+        Text getByUserId(Integer userId)
+    }
+
+    class ContentController{
+        TextService taskService;
+        PictureService pictureService;
+        void addText(String text)
+        void deleteText(Integer id)
+        String getTextByPostId(Integer postId)
+        ...
+    } 
+
+class Picture {
+        Integer pictureId
+        Byte[] value
+    }
+
+    class PictureDao {
+        void add(Picture picture)
+        void delete(Integer id)
+        List<Picture> getAll()
+        Text getById(Integer id)
+        Text getByPostId(Integer postId)
+    }
+
+    class PictureDto {
+        Integer pictureId
+        Byte[] value
+    }
+
+    class PictureMapper{
+        Picture pictureDtoToPicture(PictureDto pictureDto)
+        PictureDto pictureToPictureDto(Picture picture)
+    }
+    
+    class PictureService {
+        PictureDao dao
+        PictureMapper mapper
+        void add(Picture picture)
+        void delete(Integer id)
+        List<Picture> getAll()
+        Text getById(Integer id)
+        Text getByUserId(Integer userId)
+    }
+
+}
+@enduml

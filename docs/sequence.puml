@@ -1,0 +1,32 @@
+@startuml
+actor User
+boundary "Web GUI" as UI
+control "UserController" as userControl
+control "PostController" as postControl
+control "Content manager" as CM
+control "Post manager" as PM
+
+group Authorization
+    User -> UI : sign in
+    UI -> userControl : sign in
+    userControl -> PM : sign in
+    PM --> userControl : ok
+    userControl --> UI : ok
+    UI --> User : ok
+end
+
+group get all articles
+    User -> UI : get all articles
+    UI -> postControl : get all articles
+    postControl -> PM : get all articles
+    PM -> PM : get all articles
+    PM --> postControl : list of articles and their content id
+    loop
+      postControl -> CM : get content of article
+      CM -> CM : get content of article
+      CM --> postControl : text and pictures of article
+    end loop
+    postControl --> UI : list of articles with content
+    UI --> User : list of articles
+end
+@enduml

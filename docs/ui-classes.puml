@@ -1,0 +1,47 @@
+@startuml
+package User_Interface {
+    class RegistrationView {
+        UserDto user
+        void signIn()
+        void signOut()
+        void signUp()
+    }
+    
+    class UserView {
+        UserDto user;
+    }
+    
+    class UserController {
+        boolean signInUser(String username)
+        boolean signOutUser()
+        boolean signUp(UserDto user)
+    }
+    
+    class PostController{
+        void createPost(PostDto post)
+        List<PostDto> getAll()
+        PostDto getArticle(Integer id)
+        void updateArticle(PostDto post)
+        void deleteArticle(Integer id)
+        void addToFavorite(Integer userId, Integer postId)
+    }
+
+    class CreatePostView{
+        void createPost(String content)
+    }
+
+    class PostView{
+        PostDto post
+    }
+    
+    class PostListView{
+        List<PostDto> posts
+    }
+    
+    UserController *-- RegistrationView 
+    PostController *-- CreatePostView
+    PostController *-- PostView
+    PostController *-- PostListView
+    UserController *-- UserView
+}
+@enduml

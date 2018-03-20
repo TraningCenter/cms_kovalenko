@@ -1,0 +1,21 @@
+@startuml
+:Unauthorized user: --> (read articles)
+:Unauthorized user: --> (sign up)
+:Unauthorized user: --> (sign in)
+
+(read articles) as (read)
+
+:Authorized user: --> (read)
+:Authorized user: --> (add new article)
+:Authorized user: --> (edit article)
+:Authorized user: --> (add article to favorites)
+:Authorized user: --> (sign out)
+
+(read) <.. (read favorite articles) : <<extend>>
+(add new article) ..> (add text) : <<include>>
+(add new article) <.. (add picture) : <<extend>>
+
+(edit article) <.. (edit content) : <<extend>>
+(edit article) <.. (edit picture) : <<extend>>
+(edit article) <.. (delete article) : <<extend>>
+@enduml

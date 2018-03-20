@@ -1,0 +1,133 @@
+@startuml
+package "Post manager"{
+
+     UserService -down-* UserDao
+     UserService -down-* UserMapper
+     UserService -left-> UserDto
+     UserMapper -down-> UserDto
+     UserMapper -up-> User
+     UserDao -up-> User
+     UserDao -up-|> GenericDao
+     UserController -down-* UserService
+     PostController -down-* PostService
+     AuthController -down-* UserService
+     AuthController -down-* SecurityService
+     SecurityService -right-* UserService
+ 
+     PostService -down-* PostDao
+     PostService -down-* PostMapper
+     PostService -right-> PostDto
+     PostMapper -down-> PostDto
+     PostMapper -up-> Post
+     PostDao -up-> Post
+     PostDao -up-|> GenericDao
+   
+     class User {
+        Integer userId
+        String firstName
+        String lastName
+        String username
+        String password
+        List<Post> posts
+    }
+    
+    class Post {
+        Integer id;
+        Integer textId
+        List<Integer> pictureId
+    }
+    
+    class UserDao {
+        void add(User entity)
+        void delete(Integer id)
+        List<User> getAll()
+        User getById(Integer id)
+    }
+   
+    class GenericDao<T,PK>{
+        EntityManager manager
+        Class<T> entityClass
+        void add(T entity)
+        void delete(PK id)
+        List<T> getAll()
+        T getById(PK id)
+    }
+    
+     class PostDao{
+        void add(Post entity)
+        void delete(Integer id)
+        List<Post> getAll()
+        Post getById(Integer id)
+    }
+    
+    class PostDto {
+        Integer id;
+        Integer textId
+        List<Integer> pictureId
+    }
+    
+    class UserDto {
+        Integer userId
+        String firstName
+        String lastName
+        String username
+        List<Post> posts
+    }
+
+    class UserMapper{
+        User userDtoToUser(UserDto userDto)
+        TextDTO userToUserDto(User user)
+    }
+
+    class PostMapper{
+        Post postDtoToPost(PostDto postDto)
+        PostDtp postToPostDto(Post post)
+    }
+
+    class UserService {
+        UserDao dao
+        UserMapper mapper
+        void createUser(UserDTO user)
+        UserDto findByLogin(String login)
+        UserDto findById(Integer id)
+        void saveUser(UserDTO user)
+        void updateUser(UserDTO user)
+        void deleteUser(UserDTO user)
+        List<UserDTO> findAllUsers()
+        List<UserDTO> getAllAdmins()
+
+    }
+    
+    class PostService {
+        PostDao dao
+        PostMapper mapper
+        void createPost(PostDTO post)
+        void updatePost(PostDTO post)
+        void deletePost(PostDTO post)
+        void savePost(PostDTO post)
+    }
+    
+    class UserController {
+        UserService userService
+        void registerUser()
+    }
+
+    class PostController {
+        PostService postService
+    }
+    
+     class AuthController {
+        SecurityService securityService
+        UserService userService
+        void signIn(String username)
+        void signOut()
+    }
+    
+     class SecurityService {
+         UserService userService
+         String getUsername()
+         void signIn(String username)
+         void signOut()
+    }
+}
+@enduml

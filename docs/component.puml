@@ -1,0 +1,30 @@
+@startuml
+node "Content manager" {
+    database "CM database" {
+        [Texts]
+        [Pictures]
+    }
+    [CM Controller] --> [Texts]
+    [CM Controller] --> [Pictures]    
+}
+node "Post manager" {    
+    database "PM Database" {
+        [Posts]
+        [Users]
+    }  
+    [PM Controller] .left.> [Post manager]  
+    [PM Controller] .right.> [User manager]  
+    [Post manager] --> [Posts]  
+    [User manager] --> [Users]  
+}
+
+node "User Interface" {
+    [UI Server] --> [PM Controller] : REST
+    [UI Client] ..> [UI Server]
+}
+
+node "Proxy Server" {
+  [UI Server] -left- [Proxy] : REST
+  [Proxy] --> [CM Controller] : REST
+}
+@enduml
