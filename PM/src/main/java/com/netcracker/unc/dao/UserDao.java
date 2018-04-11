@@ -34,6 +34,9 @@ public interface UserDao {
     @Insert("insert into users(first_name, last_name, username, password) values(#{firstName}, #{lastName}, #{username}, #{password}) ")
     void addUser(User user);
 
+    @Update("update users set first_name=#{firstName}, last_name=#{lastName}, username=#{username} where user_id=#{userId}")
+    void updateUser(User user);
+
     @Delete("delete from users where user_id=#{id}")
     void deleteUser(Integer id);
 }

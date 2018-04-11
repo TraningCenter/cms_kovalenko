@@ -1,7 +1,6 @@
-package com.netcracker.unc;
+package com.netcracker.unc.service;
 
-import com.netcracker.unc.model.User;
-import com.netcracker.unc.service.UserService;
+import com.netcracker.unc.dto.UserDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +17,9 @@ public class UserServiceTest {
 
     @Test
     public void addUser() {
-        User user = new User("Test2", "12345");
+        UserDto user = new UserDto("Test2", "12345");
         userService.addUser(user);
-        User savedUser = userService.getUserByUsername("Test2");
+        UserDto savedUser = userService.getUserByUsername("Test2");
         Assert.assertNotNull(savedUser);
         Assert.assertEquals(savedUser.getUsername(), user.getUsername());
         Assert.assertEquals(savedUser.getPassword(), user.getPassword());
@@ -29,6 +28,19 @@ public class UserServiceTest {
             Assert.fail();
         } catch (Exception ignored) {
         }
+        userService.deleteUser(savedUser.getUserId());
+    }
+
+    @Test
+    public void updateUser() {
+        UserDto user = new UserDto("Test2", "12345");
+        userService.addUser(user);
+        UserDto savedUser = userService.getUserByUsername("Test2");
+        Assert.assertNull(savedUser.getFirstName());
+        savedUser.setFirstName("FirstName");
+        userService.updateUser(savedUser);
+        savedUser = userService.getUserById(savedUser.getUserId());
+        Assert.assertEquals(savedUser.getFirstName(), "FirstName");
         userService.deleteUser(savedUser.getUserId());
     }
 }

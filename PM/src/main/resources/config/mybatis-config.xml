@@ -9,4 +9,7 @@
         <typeAlias type="com.netcracker.unc.model.User" alias="user"/>
         <typeAlias type="com.netcracker.unc.model.Post" alias="post"/>
     </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="com.netcracker.unc.dao.type.IntegerArrayTypeHandler" javaType="java.util.ArrayList" jdbcType="ARRAY"/>
+    </typeHandlers>
 </configuration>

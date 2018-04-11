@@ -16,9 +16,10 @@ CREATE SEQUENCE posts_id_seq;
 
 CREATE TABLE posts (
   post_id    INTEGER NOT NULL DEFAULT nextval('posts_id_seq'),
+  title      VARCHAR NOT NULL,
   user_id    INTEGER NOT NULL,
   text_id    INTEGER NOT NULL,
-  pictures_id INTEGER ARRAY,
+  pictures_id VARCHAR,
   CONSTRAINT post_pk PRIMARY KEY (post_id)
 );
 
