@@ -20,7 +20,13 @@ public class PostMapperTest {
         Assert.assertEquals(post.getTitle(), postDto.getTitle());
         Assert.assertEquals(post.getUserId(), postDto.getUserId());
         Assert.assertEquals(post.getTextId(), postDto.getTextId());
-        Assert.assertEquals(post.getPicturesId(), postDto.getPicturesId());
+        ArrayList<Integer> rightArray = new ArrayList<Integer>() {{
+            add(4);
+            add(5);
+        }};
+        Assert.assertTrue(postDto.getPicturesId().size()== rightArray.size());
+        Assert.assertTrue(postDto.getPicturesId().equals(rightArray));
+
     }
 
     @Test
@@ -34,6 +40,6 @@ public class PostMapperTest {
         Assert.assertEquals(post.getTitle(), postDto.getTitle());
         Assert.assertEquals(post.getUserId(), postDto.getUserId());
         Assert.assertEquals(post.getTextId(), postDto.getTextId());
-        Assert.assertEquals(post.getPicturesId(), postDto.getPicturesId());
+        Assert.assertEquals(post.getPicturesId(), "4, 5");
     }
 }

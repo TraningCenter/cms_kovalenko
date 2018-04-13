@@ -1,8 +1,5 @@
 package com.netcracker.unc.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Post {
     private Integer postId;
     private String title;

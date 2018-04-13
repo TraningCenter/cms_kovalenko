@@ -8,6 +8,7 @@
     <typeAliases>
         <typeAlias type="com.netcracker.unc.model.User" alias="user"/>
         <typeAlias type="com.netcracker.unc.model.Post" alias="post"/>
+        <typeAlias type="com.netcracker.unc.model.Message" alias="message"/>
     </typeAliases>
     <typeHandlers>
         <typeHandler handler="com.netcracker.unc.dao.type.IntegerArrayTypeHandler" javaType="java.util.ArrayList" jdbcType="ARRAY"/>

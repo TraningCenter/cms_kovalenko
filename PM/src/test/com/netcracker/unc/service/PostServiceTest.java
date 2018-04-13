@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/applicationContext.xml"})
 public class PostServiceTest {
@@ -17,7 +19,6 @@ public class PostServiceTest {
     PostService postService;
     @Autowired
     UserService userService;
-
 
     @Test
     public void addPost() {
@@ -36,11 +37,15 @@ public class PostServiceTest {
     }
 
     @Test
-    public void updateUser() {
+    public void updatePost() {
         UserDto user = new UserDto("Test2", "12345");
         userService.addUser(user);
         UserDto savedUser = userService.getUserByUsername("Test2");
-        PostDto post = new PostDto("title", savedUser.getUserId(), 2, "1, 2, 3");
+        PostDto post = new PostDto("title", savedUser.getUserId(), 2, new ArrayList<Integer>() {{
+            add(1);
+            add(2);
+            add(3);
+        }});
         postService.addPost(post);
         PostDto savedPost = postService.getAllPostsByUserId(savedUser.getUserId()).get(0);
         Assert.assertEquals(savedPost.getTitle(), "title");

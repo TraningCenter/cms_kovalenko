@@ -5,14 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.netcracker.unc</groupId>
-    <artifactId>cms</artifactId>
-    <name>cms</name>
+    <artifactId>cms_kovalenko</artifactId>
+    <name>cms_kovalenko</name>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>CM</module>
         <module>PM</module>
         <module>UI</module>
+        <module>CMS</module>
     </modules>
 
     <dependencies>
@@ -23,7 +24,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>cms</finalName>
+        <finalName>cms_kovalenko</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

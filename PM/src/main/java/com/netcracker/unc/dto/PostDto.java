@@ -1,5 +1,6 @@
 package com.netcracker.unc.dto;
 
+import com.netcracker.unc.model.User;
 import com.netcracker.unc.util.ParseUtil;
 
 import java.util.ArrayList;
@@ -9,44 +10,31 @@ public class PostDto {
     private String title;
     private Integer userId;
     private Integer textId;
-    private String picturesId;
-    private ArrayList<Integer> picturesArray;
+    private ArrayList<Integer> picturesId;
 
     public PostDto() {
     }
 
-    public PostDto(Integer postId, String title, Integer userId, Integer textId, String picturesId) {
+    public PostDto(Integer postId, String title, Integer userId, Integer textId, ArrayList<Integer> picturesId) {
         this.postId = postId;
         this.title = title;
         this.userId = userId;
         this.textId = textId;
         this.picturesId = picturesId;
-        picturesArray = ParseUtil.parseStringArray(picturesId);
     }
 
-    public PostDto(Integer postId, String title, Integer userId, Integer textId, ArrayList<Integer> picturesArray) {
-        this.postId = postId;
-        this.title = title;
-        this.userId = userId;
-        this.textId = textId;
-        this.picturesArray = picturesArray;
-        picturesId = ParseUtil.convertArrayToString(picturesArray);
-    }
-
-    public PostDto(String title, Integer userId, Integer textId, String picturesId) {
+    public PostDto(String title, Integer userId, Integer textId, ArrayList<Integer> picturesId) {
         this.title = title;
         this.userId = userId;
         this.textId = textId;
         this.picturesId = picturesId;
-        picturesArray = ParseUtil.parseStringArray(picturesId);
     }
 
-    public PostDto(String title, Integer userId, Integer textId, ArrayList<Integer> picturesArray) {
+    public PostDto(Integer postId, String title, Integer userId, Integer textId) {
+        this.postId = postId;
         this.title = title;
         this.userId = userId;
         this.textId = textId;
-        this.picturesArray = picturesArray;
-        picturesId = ParseUtil.convertArrayToString(picturesArray);
     }
 
     public PostDto(String title, Integer userId, Integer textId) {
@@ -87,22 +75,16 @@ public class PostDto {
         this.textId = textId;
     }
 
-    public String getPicturesId() {
+    public ArrayList<Integer> getPicturesId() {
         return picturesId;
     }
 
-    public void setPicturesId(String picturesId) {
+    public void setPicturesId(ArrayList<Integer> picturesId) {
         this.picturesId = picturesId;
-        picturesArray = ParseUtil.parseStringArray(picturesId);
     }
 
-    public ArrayList<Integer> getPicturesArray() {
-        return picturesArray;
-    }
-
-    public void setPicturesArray(ArrayList<Integer> picturesArray) {
-        this.picturesArray = picturesArray;
-        picturesId = ParseUtil.convertArrayToString(picturesArray);
+    public void parsePicturesId(String stringArray){
+        picturesId = ParseUtil.parseStringArray(stringArray);
     }
 
     @Override
@@ -136,8 +118,7 @@ public class PostDto {
         sb.append(", title='").append(title).append('\'');
         sb.append(", userId=").append(userId);
         sb.append(", textId=").append(textId);
-        sb.append(", picturesId='").append(picturesId).append('\'');
-        sb.append(", picturesArray=").append(picturesArray);
+        sb.append(", picturesId=").append(picturesId);
         sb.append('}');
         return sb.toString();
     }
