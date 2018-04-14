@@ -1,13 +1,25 @@
 package com.netcracker.unc.model;
 
+import java.util.Date;
+
 public class Post {
     private Integer postId;
     private String title;
     private Integer userId;
     private Integer textId;
     private String picturesId;
+    private Date dateTime;
 
     public Post() {
+    }
+
+    public Post(Integer postId, String title, Integer userId, Integer textId, String picturesId, Date dateTime) {
+        this.postId = postId;
+        this.title = title;
+        this.userId = userId;
+        this.textId = textId;
+        this.picturesId = picturesId;
+        this.dateTime = dateTime;
     }
 
     public Post(Integer postId, String title, Integer userId, Integer textId, String picturesId) {
@@ -71,6 +83,14 @@ public class Post {
         this.picturesId = picturesId;
     }
 
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,7 +102,8 @@ public class Post {
         if (title != null ? !title.equals(post.title) : post.title != null) return false;
         if (userId != null ? !userId.equals(post.userId) : post.userId != null) return false;
         if (textId != null ? !textId.equals(post.textId) : post.textId != null) return false;
-        return picturesId != null ? picturesId.equals(post.picturesId) : post.picturesId == null;
+        if (picturesId != null ? !picturesId.equals(post.picturesId) : post.picturesId != null) return false;
+        return dateTime != null ? dateTime.equals(post.dateTime) : post.dateTime == null;
     }
 
     @Override
@@ -92,6 +113,7 @@ public class Post {
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (textId != null ? textId.hashCode() : 0);
         result = 31 * result + (picturesId != null ? picturesId.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 
@@ -103,6 +125,7 @@ public class Post {
         sb.append(", userId=").append(userId);
         sb.append(", textId=").append(textId);
         sb.append(", picturesId='").append(picturesId).append('\'');
+        sb.append(", dateTime=").append(dateTime);
         sb.append('}');
         return sb.toString();
     }

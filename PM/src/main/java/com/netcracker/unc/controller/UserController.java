@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     PostService postService;
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public UserDto getUserById(@PathVariable("userId") Integer id) {
         if (id == null || id < 0) throw new BadRequestException();

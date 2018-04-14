@@ -22,6 +22,9 @@ public abstract class MessageMapper {
         ApplicationContext context = ApplicationContextProvider.getApplicationContext();
         UserService userService = (UserService) context.getBean("userService");
         UserDto userDto = userService.getUserById(message.getUserId());
-        messageDto.setUserName(userDto.getFirstName() + " " + userDto.getLastName());
+        if (userDto.getFirstName() != null || userDto.getLastName() != null) {
+            messageDto.setUserName(userDto.getFirstName() + " " + userDto.getLastName());
+        } else
+            messageDto.setUserName(userDto.getUsername());
     }
 }

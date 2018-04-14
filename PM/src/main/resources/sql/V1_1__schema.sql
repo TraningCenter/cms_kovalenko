@@ -20,6 +20,7 @@ CREATE TABLE posts (
   user_id    INTEGER NOT NULL,
   text_id    INTEGER NOT NULL,
   pictures_id VARCHAR,
+  date_time TIMESTAMP DEFAULT NOW(),
   CONSTRAINT post_pk PRIMARY KEY (post_id)
 );
 

@@ -1,9 +1,9 @@
 package com.netcracker.unc.dto;
 
-import com.netcracker.unc.model.User;
 import com.netcracker.unc.util.ParseUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PostDto {
     private Integer postId;
@@ -11,8 +11,19 @@ public class PostDto {
     private Integer userId;
     private Integer textId;
     private ArrayList<Integer> picturesId;
+    private Date dateTime;
+
 
     public PostDto() {
+    }
+
+    public PostDto(Integer postId, String title, Integer userId, Integer textId, ArrayList<Integer> picturesId, Date dateTime) {
+        this.postId = postId;
+        this.title = title;
+        this.userId = userId;
+        this.textId = textId;
+        this.picturesId = picturesId;
+        this.dateTime = dateTime;
     }
 
     public PostDto(Integer postId, String title, Integer userId, Integer textId, ArrayList<Integer> picturesId) {
@@ -83,8 +94,16 @@ public class PostDto {
         this.picturesId = picturesId;
     }
 
-    public void parsePicturesId(String stringArray){
+    public void parsePicturesId(String stringArray) {
         picturesId = ParseUtil.parseStringArray(stringArray);
+    }
+
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
@@ -98,7 +117,8 @@ public class PostDto {
         if (title != null ? !title.equals(postDto.title) : postDto.title != null) return false;
         if (userId != null ? !userId.equals(postDto.userId) : postDto.userId != null) return false;
         if (textId != null ? !textId.equals(postDto.textId) : postDto.textId != null) return false;
-        return picturesId != null ? picturesId.equals(postDto.picturesId) : postDto.picturesId == null;
+        if (picturesId != null ? !picturesId.equals(postDto.picturesId) : postDto.picturesId != null) return false;
+        return dateTime != null ? dateTime.equals(postDto.dateTime) : postDto.dateTime == null;
     }
 
     @Override
@@ -108,6 +128,7 @@ public class PostDto {
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (textId != null ? textId.hashCode() : 0);
         result = 31 * result + (picturesId != null ? picturesId.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 
@@ -119,6 +140,7 @@ public class PostDto {
         sb.append(", userId=").append(userId);
         sb.append(", textId=").append(textId);
         sb.append(", picturesId=").append(picturesId);
+        sb.append(", dateTime=").append(dateTime);
         sb.append('}');
         return sb.toString();
     }

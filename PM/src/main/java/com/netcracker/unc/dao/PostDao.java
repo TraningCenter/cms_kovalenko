@@ -15,7 +15,8 @@ public interface PostDao {
             @Result(property = "postId", column = "post_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "textId", column = "text_id"),
-            @Result(property = "picturesId", column = "pictures_id")
+            @Result(property = "picturesId", column = "pictures_id"),
+            @Result(property = "dateTime", column = "date_time"),
     })
     Post getPostById(Integer id);
 
@@ -24,7 +25,8 @@ public interface PostDao {
             @Result(property = "postId", column = "post_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "textId", column = "text_id"),
-            @Result(property = "picturesId", column = "pictures_id")
+            @Result(property = "picturesId", column = "pictures_id"),
+            @Result(property = "dateTime", column = "date_time"),
     })
     List<Post> getAllPosts();
 
@@ -33,7 +35,8 @@ public interface PostDao {
             @Result(property = "postId", column = "post_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "textId", column = "text_id"),
-            @Result(property = "picturesId", column = "pictures_id")
+            @Result(property = "picturesId", column = "pictures_id"),
+            @Result(property = "dateTime", column = "date_time"),
     })
     List<Post> getAllPostsByUserId(Integer userId);
 

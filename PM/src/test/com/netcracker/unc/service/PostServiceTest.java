@@ -2,7 +2,9 @@ package com.netcracker.unc.service;
 
 import com.netcracker.unc.dto.PostDto;
 import com.netcracker.unc.dto.UserDto;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,22 @@ public class PostServiceTest {
     @Autowired
     UserService userService;
 
-    @Test
-    public void addPost() {
+    private UserDto savedUser;
+
+    @Before
+    public void init(){
         UserDto user = new UserDto("Test2", "12345");
         userService.addUser(user);
-        UserDto savedUser = userService.getUserByUsername("Test2");
+        savedUser = userService.getUserByUsername("Test2");
+    }
+
+    @After
+    public void destroy(){
+        userService.deleteUser(savedUser.getUserId());
+    }
+
+    @Test
+    public void addPost() {
         PostDto post = new PostDto("title", savedUser.getUserId(), 2);
         postService.addPost(post);
         PostDto savedPost = postService.getAllPostsByUserId(savedUser.getUserId()).get(0);
@@ -33,14 +46,10 @@ public class PostServiceTest {
         Assert.assertEquals(savedPost.getUserId(), post.getUserId());
         Assert.assertEquals(savedPost.getTextId(), post.getTextId());
         postService.deletePost(savedPost.getPostId());
-        userService.deleteUser(savedUser.getUserId());
     }
 
     @Test
     public void updatePost() {
-        UserDto user = new UserDto("Test2", "12345");
-        userService.addUser(user);
-        UserDto savedUser = userService.getUserByUsername("Test2");
         PostDto post = new PostDto("title", savedUser.getUserId(), 2, new ArrayList<Integer>() {{
             add(1);
             add(2);
@@ -54,6 +63,5 @@ public class PostServiceTest {
         savedPost = postService.getPostById(savedPost.getPostId());
         Assert.assertEquals(savedPost.getTitle(), "New title");
         postService.deletePost(savedPost.getPostId());
-        userService.deleteUser(savedUser.getUserId());
     }
 }
