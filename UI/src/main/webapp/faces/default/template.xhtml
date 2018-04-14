@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>Blog. Write in log!</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="sticky-footer.css"/>
+</h:head>
+<h:body>
+    <ui:include src="header.xhtml"/>
+    <ui:insert name="contentPage">
+        <ui:include src="content.xhtml"/>
+    </ui:insert>
+    <ui:include src="footer.xhtml"/>
+</h:body>
+</html>
