@@ -1,0 +1,24 @@
+<ui:composition
+        template="default/content.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <div class="col-sm-8 col-sm-offset-2"
+             style="margin-top:10px; background: #f5fff8; border-radius: 10px; border: 1px solid #c6ffd8; box-shadow: 0 0 10px rgba(206, 206, 206, 0.5); padding:20px 50px 50px 50px;">
+            <h:form id="newPost" enctype="multipart/form-data">
+                <h4 style="color:#0770a7; font-weight: bold">New Post</h4>
+                <b:inputText placeholder="Name of future post" label="Header"/>
+                <b:inputTextarea placeholder="Description of future post" label="Description"/>
+                <h:outputLabel value="Attach photos"/>
+                <h:form><p:fileUpload value="" mode="advanced" skinSimple="true" multiple="true" fileLimit="5"
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/></h:form>
+                <b:commandButton value="Create" look="primary"
+                                 style="width:100%; background:#60b0f4; border:0px; margin-top:20px;"/>
+
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>
