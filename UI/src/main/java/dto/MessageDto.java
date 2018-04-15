@@ -1,6 +1,4 @@
-package com.netcracker.unc.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+package dto;
 
 import java.util.Date;
 
@@ -10,7 +8,6 @@ public class MessageDto {
     private Integer userId;
     private String userName;
     private String text;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private Date dateTime;
 
     public MessageDto() {

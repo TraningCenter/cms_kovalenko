@@ -1,7 +1,4 @@
-package com.netcracker.unc.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.netcracker.unc.util.ParseUtil;
+package dto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +9,6 @@ public class PostDto {
     private UserDto user;
     private Integer textId;
     private ArrayList<Integer> picturesId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private Date dateTime;
 
 
@@ -94,10 +90,6 @@ public class PostDto {
 
     public void setPicturesId(ArrayList<Integer> picturesId) {
         this.picturesId = picturesId;
-    }
-
-    public void parsePicturesId(String stringArray) {
-        picturesId = ParseUtil.parseStringArray(stringArray);
     }
 
     public Date getDateTime() {

@@ -46,7 +46,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/posts.xhtml</welcome-file>
     </welcome-file-list>
 
 
