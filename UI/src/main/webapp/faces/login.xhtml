@@ -1,0 +1,25 @@
+<ui:composition
+        template="default/content.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="content">
+
+        <div class="col-sm-4 col-lg-offset-4"
+             style="margin-top:100px; background: #f5fff8; border-radius: 10px; border: 1px solid #c6ffd8; box-shadow: 0 0 10px rgba(206, 206, 206, 0.5); padding:20px 50px 20px 50px;">
+
+            <h:form id="login">
+                <h4 style="color:#0770a7; font-weight: bold">Authorization</h4>
+                <div style="line-height:33px;">
+                    <b:inputText placeholder="Username"/>
+                    <b:inputSecret placeholder="Password"/>
+                    <b:commandButton value="Sign in" look="primary"
+                                     style="width:100%; background:#60b0f4; border:0px;"/>
+                    <div class="text-center" style="margin-top:5px; font-size:12px;">
+                        <b:navLink value="Doesn't have account yet?"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
