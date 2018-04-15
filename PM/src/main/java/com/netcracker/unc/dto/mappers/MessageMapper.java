@@ -19,12 +19,14 @@ public abstract class MessageMapper {
 
     @AfterMapping
     void setUserName(Message message, @MappingTarget MessageDto messageDto) {
-        ApplicationContext context = ApplicationContextProvider.getApplicationContext();
-        UserService userService = (UserService) context.getBean("userService");
-        UserDto userDto = userService.getUserById(message.getUserId());
-        if (userDto.getFirstName() != null || userDto.getLastName() != null) {
-            messageDto.setUserName(userDto.getFirstName() + " " + userDto.getLastName());
-        } else
-            messageDto.setUserName(userDto.getUsername());
+        if (message.getMessageId() != null) {
+            ApplicationContext context = ApplicationContextProvider.getApplicationContext();
+            UserService userService = (UserService) context.getBean("userService");
+            UserDto userDto = userService.getUserById(message.getUserId());
+            if (userDto.getFirstName() != null || userDto.getLastName() != null) {
+                messageDto.setUserName(userDto.getFirstName() + " " + userDto.getLastName());
+            } else
+                messageDto.setUserName(userDto.getUsername());
+        }
     }
 }

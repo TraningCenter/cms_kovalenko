@@ -17,28 +17,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.Date;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/applicationContext.xml"})
 public class MessageMapperTest {
 
     private MessageMapper mapper = Mappers.getMapper(MessageMapper.class);
-    @Autowired
-    UserService userService;
 
     @Test
     public void messageToMessageDto() {
-        UserDto user = new UserDto("firstName", "lastName","Test2", "12345");
-        userService.addUser(user);
-        UserDto savedUser = userService.getUserByUsername("Test2");
-        Message message = new Message(1, 2, savedUser.getUserId(), "text", new Date());
+        Message message = new Message(2, 1, "text", new Date());
         MessageDto messageDto = mapper.messageToMessageDto(message);
         Assert.assertEquals(message.getMessageId(), messageDto.getMessageId());
         Assert.assertEquals(message.getPostId(), messageDto.getPostId());
         Assert.assertEquals(message.getUserId(), messageDto.getUserId());
-        Assert.assertEquals(messageDto.getUserName(), "firstName lastName");
+        Assert.assertNull(messageDto.getUserName());
         Assert.assertEquals(message.getText(), messageDto.getText());
         Assert.assertEquals(message.getDateTime(), messageDto.getDateTime());
-        userService.deleteUser(savedUser.getUserId());
     }
 
     @Test
