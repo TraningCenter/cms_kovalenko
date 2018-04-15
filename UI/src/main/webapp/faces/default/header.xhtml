@@ -8,11 +8,11 @@
             <h:graphicImage value="/resources/img/logo.png" styleClass="logo"/>
         </h:outputLink>
         <b:navbarLinks>
-            <b:navLink value="New post" href="#" iconAwesome="fa-plus"/>
+            <b:navLink value="New post" href="/faces/newPost.xhtml" iconAwesome="fa-plus"/>
         </b:navbarLinks>
         <b:navbarLinks pull="right">
             <c:if test="#{headerView.logged}">
-                <h:form class="navbar-form navbar-right">
+                <h:form styleClass="navbar-form navbar-right">
                     <b:navCommandLink value="Log out"/>
                 </h:form>
             </c:if>

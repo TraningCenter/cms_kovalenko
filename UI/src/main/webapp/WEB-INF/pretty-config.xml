@@ -3,11 +3,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
-    <url-mapping id="index">
-        <pattern value="/index"/>
-        <view-id value="/faces/index.xhtml"/>
-    </url-mapping>
-
     <url-mapping id="posts">
         <pattern value="/posts"/>
         <view-id value="/faces/posts.xhtml"/>
@@ -16,6 +11,26 @@
     <url-mapping id="login">
         <pattern value="/login"/>
         <view-id value="/faces/login.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="registration">
+        <pattern value="/register"/>
+        <view-id value="/faces/registration.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="newPost">
+        <pattern value="/newPost"/>
+        <view-id value="/faces/newPost.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="post">
+        <pattern value="/post"/>
+        <view-id value="/faces/post.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="profile">
+        <pattern value="/profile"/>
+        <view-id value="/faces/profile.xhtml"/>
     </url-mapping>
 
 </pretty-config>
