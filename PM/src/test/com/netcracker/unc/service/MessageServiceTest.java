@@ -31,7 +31,7 @@ public class MessageServiceTest {
         UserDto user = new UserDto("Test2", "12345");
         userService.addUser(user);
         savedUser = userService.getUserByUsername("Test2");
-        PostDto post = new PostDto("title", savedUser.getUserId(), 2);
+        PostDto post = new PostDto("title", savedUser, 2);
         postService.addPost(post);
         savedPost = postService.getAllPostsByUserId(savedUser.getUserId()).get(0);
     }

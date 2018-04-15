@@ -25,32 +25,32 @@ public class PostServiceTest {
     private UserDto savedUser;
 
     @Before
-    public void init(){
+    public void init() {
         UserDto user = new UserDto("Test2", "12345");
         userService.addUser(user);
         savedUser = userService.getUserByUsername("Test2");
     }
 
     @After
-    public void destroy(){
+    public void destroy() {
         userService.deleteUser(savedUser.getUserId());
     }
 
     @Test
     public void addPost() {
-        PostDto post = new PostDto("title", savedUser.getUserId(), 2);
+        PostDto post = new PostDto("title", savedUser, 2);
         postService.addPost(post);
         PostDto savedPost = postService.getAllPostsByUserId(savedUser.getUserId()).get(0);
         Assert.assertNotNull(savedPost);
         Assert.assertEquals(savedPost.getTitle(), post.getTitle());
-        Assert.assertEquals(savedPost.getUserId(), post.getUserId());
+        Assert.assertEquals(savedPost.getUser().getUserId(), post.getUser().getUserId());
         Assert.assertEquals(savedPost.getTextId(), post.getTextId());
         postService.deletePost(savedPost.getPostId());
     }
 
     @Test
     public void updatePost() {
-        PostDto post = new PostDto("title", savedUser.getUserId(), 2, new ArrayList<Integer>() {{
+        PostDto post = new PostDto("title", savedUser, 2, new ArrayList<Integer>() {{
             add(1);
             add(2);
             add(3);
