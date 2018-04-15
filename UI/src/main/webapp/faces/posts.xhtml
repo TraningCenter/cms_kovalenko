@@ -1,0 +1,93 @@
+<ui:composition
+        template="default/content.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="content">
+
+        <b:panel colLg="10" offsetLg="1" style="background:#f5fff8; padding:20px 10px 20px 10px; box-shadow:0 0 10px rgba(206, 206, 206, 0.5)">
+            <b:container fluid="true">
+                <div style="display: inline-block; width:32px; margin-right:10px; vertical-align:middle">
+                    <b:image width="32px" value="/resources/img/user.png"/>
+                </div>
+                <div style="display: inline-block; vertical-align:middle; font-size: 12px">
+                    <div>
+                        <h:outputText value="Natasha Kovalenko" style="font-weight: bold"/>
+                    </div>
+                    <div>
+                        <b:navLink value="@HeyTricky" href="#"/>
+                    </div>
+                </div>
+                <div class="block" style="margin-top: 15px">
+                    <div style="margin-bottom: 5px;"><b:navLink value="What is Lorem Ipsum" href="#"
+                                                                style="font-weight:bold; color:#2b5e7f; font-size:17px; text-decoration:none"/>
+                    </div>
+                    <h:outputText style="text-align: justify"
+                                  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                  an unknown printer took a galley of type and scrambled it to make a type specimen
+                                  book. It has survived not only five centuries, but also the leap into electronic
+                                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                                  the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                                  with desktop publishing software like Aldus PageMaker including versions of Lorem
+                                  Ipsum."/>
+                </div>
+
+                <div style="margin-top: 10px; color:#878787">
+                    <div class="pull-left" style="display: inline;">
+                        <b:iconAwesome name="fa-clock-o"/>
+                        <h:outputText value=" a few seconds ago"/>
+                    </div>
+                    <div class="pull-right" style="display: inline">
+                        <b:iconAwesome name="fa-comment"/>
+                        <h:outputText value=" Comments(5)"/>
+                    </div>
+                </div>
+            </b:container>
+
+        </b:panel>
+
+        <b:panel colLg="10" offsetLg="1" style="background:#f5fff8; padding:20px 10px 20px 10px; box-shadow:0 0 10px rgba(206, 206, 206, 0.5)">
+            <b:container fluid="true">
+                <div style="display: inline-block; width:32px; margin-right:10px; vertical-align:middle">
+                    <b:image width="32px" value="/resources/img/user.png"/>
+                </div>
+                <div style="display: inline-block; vertical-align:middle; font-size: 11px">
+                    <div>
+                        <h:outputText value="Natasha Kovalenko" style="font-weight: bold"/>
+                    </div>
+                    <div>
+                        <b:navLink value="@HeyTricky" href="#"/>
+                    </div>
+                </div>
+                <div class="block" style="margin-top: 15px">
+                    <div style="margin-bottom: 5px;"><b:navLink value="What is Lorem Ipsum" href="#"
+                                                                style="font-weight:bold; color:#2b5e7f; font-size:17px; text-decoration:none"/>
+                    </div>
+                    <h:outputText style="text-align: justify"
+                                  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                  an unknown printer took a galley of type and scrambled it to make a type specimen
+                                  book. It has survived not only five centuries, but also the leap into electronic
+                                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                                  the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                                  with desktop publishing software like Aldus PageMaker including versions of Lorem
+                                  Ipsum."/>
+                </div>
+
+                <div style="margin-top: 10px; color:#878787">
+                    <div class="pull-left" style="display: inline;">
+                        <b:iconAwesome name="fa-clock-o"/>
+                        <h:outputText value=" a few seconds ago"/>
+                    </div>
+                    <div class="pull-right" style="display: inline">
+                        <b:iconAwesome name="fa-comment"/>
+                        <h:outputText value=" Comments(5)"/>
+                    </div>
+                </div>
+            </b:container>
+
+        </b:panel>
+
+    </ui:define>
+</ui:composition>

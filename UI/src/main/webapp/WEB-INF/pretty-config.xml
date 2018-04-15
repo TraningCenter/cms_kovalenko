@@ -8,4 +8,14 @@
         <view-id value="/faces/index.xhtml"/>
     </url-mapping>
 
+    <url-mapping id="posts">
+        <pattern value="/posts"/>
+        <view-id value="/faces/posts.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="login">
+        <pattern value="/login"/>
+        <view-id value="/faces/login.xhtml"/>
+    </url-mapping>
+
 </pretty-config>
