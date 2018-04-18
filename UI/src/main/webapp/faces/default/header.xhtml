@@ -11,15 +11,18 @@
             <b:navLink value="New post" href="/faces/newPost.xhtml" iconAwesome="fa-plus"/>
         </b:navbarLinks>
         <b:navbarLinks pull="right">
-            <c:if test="#{headerView.logged}">
-                <h:form styleClass="navbar-form navbar-right">
-                    <b:navCommandLink value="Log out"/>
-                </h:form>
-            </c:if>
-            <c:otherwise>
-                <b:navLink value="Log in" href="/faces/login.xhtml"/>
-                <b:navLink value="Sign up" href="/faces/registration.xhtml"/>
-            </c:otherwise>
+            <c:choose>
+                <c:when test="#{loginView.logged}">
+                    <b:navLink value="Profile" href="/faces/profile.xhtml?id=#{loginView.user.userId}"/>
+                    <h:form styleClass="navbar-form navbar-right">
+                        <b:navCommandLink value="Log out" action="#{loginView.exit}"/>
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    <b:navLink value="Log in" href="/faces/login.xhtml"/>
+                    <b:navLink value="Sign up" href="/faces/registration.xhtml"/>
+                </c:otherwise>
+            </c:choose>
         </b:navbarLinks>
     </b:navBar>
 </ui:composition>

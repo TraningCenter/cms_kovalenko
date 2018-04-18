@@ -1,13 +1,12 @@
 package web;
 
-import controller.PostController;
-import dto.PostDto;
+import dto.FullPost;
+import service.PostService;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,33 +14,30 @@ import java.util.List;
 @ViewScoped
 public class ListView implements Serializable {
 
-    @Inject
-    private PostController postController;
+    @EJB
+    private PostService postService;
 
-    private List<PostDto> allPosts;
+    private List<FullPost> allPosts;
 
     @PostConstruct
     public void init() {
-        try {
-            allPosts = postController.getAllPosts();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        allPosts = postService.getAllPosts();
+        System.out.println();
     }
 
-    public PostController getPostController() {
-        return postController;
+    public PostService getPostService() {
+        return postService;
     }
 
-    public void setPostController(PostController postController) {
-        this.postController = postController;
+    public void setPostService(PostService postService) {
+        this.postService = postService;
     }
 
-    public List<PostDto> getAllPosts() {
+    public List<FullPost> getAllPosts() {
         return allPosts;
     }
 
-    public void setAllPosts(List<PostDto> allPosts) {
+    public void setAllPosts(List<FullPost> allPosts) {
         this.allPosts = allPosts;
     }
 }

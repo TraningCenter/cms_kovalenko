@@ -2,8 +2,8 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dto.MessageDto;
 import dto.PostDto;
+import dto.UserDto;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -20,13 +20,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-public class PostController {
+public class UserController {
 
-    private String pcUrl = RootProvider.getRoot() + "/pm/api/posts";
+    private String ucUrl = RootProvider.getRoot() + "/pm/api/users";
 
-    public List<PostDto> getAllPosts() throws IOException {
+    public UserDto getUserById(Integer id) throws IOException {
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet(pcUrl);
+        HttpGet httpGet = new HttpGet(ucUrl + "/user/" + id);
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        if (httpResponse.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + httpResponse.getStatusLine().getStatusCode());
+        }
+        String response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+        return new Gson().fromJson(response, UserDto.class);
+    }
+
+    public UserDto getUserByUsername(String username) throws IOException {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(ucUrl + "/" + username);
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        if (httpResponse.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + httpResponse.getStatusLine().getStatusCode());
+        }
+        String response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+        return new Gson().fromJson(response, UserDto.class);
+    }
+
+    public List<PostDto> getAllPostsByUserId(Integer userId) throws IOException {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(ucUrl + "/" + userId + "/posts");
         HttpResponse httpResponse = httpClient.execute(httpGet);
         if (httpResponse.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
@@ -37,49 +61,37 @@ public class PostController {
         }.getType());
     }
 
-    public PostDto getPostById(Integer id) throws IOException {
+    public boolean addUser(UserDto userDto) throws IOException {
+        HttpPost httpPost = new HttpPost(ucUrl + "/create");
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet(pcUrl + "/" + id);
-        HttpResponse httpResponse = httpClient.execute(httpGet);
-        if (httpResponse.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + httpResponse.getStatusLine().getStatusCode());
-        }
-        String response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-        return new Gson().fromJson(response, PostDto.class);
-    }
-
-    public PostDto addPost(PostDto postDto) throws IOException {
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(pcUrl + "/create");
+        httpPost.setEntity(new StringEntity(new Gson().toJson(userDto)));
         httpPost.setHeader("Content-type", "application/json");
-        httpPost.setEntity(new StringEntity(new Gson().toJson(postDto)));
         HttpResponse httpResponse = httpClient.execute(httpPost);
         if (httpResponse.getStatusLine().getStatusCode() != 201) {
-            return null;
+            return false;
         }
-        String response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-        return new Gson().fromJson(response, PostDto.class);
+        return true;
     }
 
-    public void updatePost(PostDto postDto) throws IOException {
+    public void updateUser(UserDto userDto) throws IOException {
+        HttpPut httpPut = new HttpPut(ucUrl + "/" + userDto.getUserId());
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPut httpPut = new HttpPut(pcUrl + "/" + postDto.getPostId());
+        httpPut.setEntity(new StringEntity(new Gson().toJson(userDto)));
         httpPut.setHeader("Content-type", "application/json");
-        httpPut.setEntity(new StringEntity(new Gson().toJson(postDto)));
         httpClient.execute(httpPut);
     }
 
-    public List<MessageDto> getPostMessages(Integer postId) throws IOException {
+    public UserDto login(UserDto userDto) throws IOException {
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet(pcUrl + "/" + postId + "/messages");
-        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpPost httpPost = new HttpPost(ucUrl + "/login");
+        httpPost.setEntity(new StringEntity(new Gson().toJson(userDto)));
+        httpPost.setHeader("Content-type", "application/json");
+        HttpResponse httpResponse = httpClient.execute(httpPost);
         if (httpResponse.getStatusLine().getStatusCode() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
                     + httpResponse.getStatusLine().getStatusCode());
         }
         String response = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-        return new Gson().fromJson(response, new TypeToken<ArrayList<MessageDto>>() {
-        }.getType());
+        return new Gson().fromJson(response, UserDto.class);
     }
 }

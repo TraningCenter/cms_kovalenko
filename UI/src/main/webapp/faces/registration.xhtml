@@ -2,19 +2,33 @@
         template="default/content.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:b="http://bootsfaces.net/ui">
+        xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-
         <div class="col-sm-6 col-sm-offset-3"
              style="margin-top:10px; background: #f5fff8; border-radius: 10px; border: 1px solid #c6ffd8; box-shadow: 0 0 10px rgba(206, 206, 206, 0.5); padding:20px 50px 50px 50px;">
             <h:form id="registration">
+                <p:growl widgetVar="growlWV" id="growl" showDetail="true"/>
                 <h4 style="color:#0770a7; font-weight: bold">Registration</h4>
                 <div>
-                    <b:inputText placeholder="Enter username (like JohnSmithOfficial)" label="Username"/>
-                    <b:inputSecret placeholder="Enter password (strong: over 8 letters and symbols)" label="Password"/>
-                    <b:inputText placeholder="Enter First Name (like John)" label="First Name"/>
-                    <b:inputText placeholder="Enter Last Name (like Smith)" label="Last Name"/>
+                    <b:inputText placeholder="Enter username (like JohnSmithOfficial)"
+                                 required="true"
+                                 value="#{registrationView.newUser.username}"
+                                 label="Username"/>
+                    <b:inputSecret placeholder="Enter password (strong: over 8 letters and symbols)"
+                                   required="true"
+                                   value="#{registrationView.newUser.password}"
+                                   label="Password"/>
+                    <b:inputText placeholder="Enter First Name (like John)"
+                                 value="#{registrationView.newUser.firstName}"
+                                 required="true"
+                                 label="First Name"/>
+                    <b:inputText placeholder="Enter Last Name (like Smith)"
+                                 value="#{registrationView.newUser.lastName}"
+                                 required="true"
+                                 label="Last Name"/>
                     <b:commandButton value="Sign up" look="primary"
+                                     actionListener="#{registrationView.register}"
+                                     update="@form growl"
                                      style="width:100%; background:#60b0f4; border:0px;"/>
 
                 </div>

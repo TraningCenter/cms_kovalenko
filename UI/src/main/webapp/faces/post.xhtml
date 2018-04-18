@@ -3,93 +3,126 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
         xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
-        xmlns:c="http://java.sun.com/jsp/jstl/core">
+        xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="id" value="#{postView.post.postId}"/>
+            <f:viewAction action="#{postView.findPostById()}"/>
+        </f:metadata>
 
-        <b:panel colLg="10" offsetLg="1"
-                 style="background:#f5fff8; padding:0px 10px 20px 10px; box-shadow:0 0 10px rgba(206, 206, 206, 0.5)">
-            <b:container fluid="true">
-                <div class="block" style="margin-top: 15px">
-                    <div style="margin-bottom: 5px;">
-                        <h:outputLabel value="What is Lorem Ipsum"
-                                       style="font-weight:bold; color:#2b5e7f; font-size:17px;"/>
-                    </div>
-                    <h:outputText styleClass="text-justify" style="display: flex"
-                                  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                                  an unknown printer took a galley of type and scrambled it to make a type specimen
-                                  book. It has survived not only five centuries, but also the leap into electronic
-                                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                                  the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                  with desktop publishing software like Aldus PageMaker including versions of Lorem
-                                  Ipsum."/>
-                </div>
-                <div style="display: inline;">
-                    <div style="display: inline-block; width:32px; margin-right:10px; vertical-align:middle">
-                        <b:image width="32px" value="/resources/img/user.png"/>
-                    </div>
-                    <div style="display: inline-block; vertical-align:middle; font-size: 12px; margin-top: 15px;">
-                        <div>
-                            <h:outputText value="Natasha Kovalenko" style="font-weight: bold"/>
+        <h:form id="postForm">
+            <b:panel colLg="10" offsetLg="1"
+                     style="background:#f5fff8; padding:0px 10px 20px 10px; box-shadow:0 0 10px rgba(206, 206, 206, 0.5)">
+                <b:container fluid="true">
+                    <div class="block" style="margin-top: 15px">
+                        <div style="margin-bottom: 5px;">
+                            <c:choose>
+                                <c:when test="#{loginView.isOwner(postView.post.user.userId)}">
+                                    <p:inplace id="title" editor="true"
+                                               style="font-weight:bold; color:#2b5e7f; font-size:17px;">
+                                        <p:ajax event="save" listener="#{postView.editTitle}"/>
+                                        <p:inputText value="#{postView.post.title}" required="true"
+                                        />
+                                    </p:inplace>
+                                </c:when>
+                                <c:otherwise>
+                                    <h:outputLabel value="#{postView.post.title}"
+                                                   style="font-weight:bold; color:#2b5e7f; font-size:17px;"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div>
-                            <b:navLink value="@HeyTricky" href="#"/>
+                            <c:choose>
+                                <c:when test="#{loginView.isOwner(postView.post.user.userId)}">
+                                    <p:inplace id="text" editor="true"
+                                               styleClass="text-justify" style="width:100%;display: flex">
+                                        <p:ajax event="save" listener="#{postView.editText}"/>
+                                        <p:inputTextarea value="#{postView.post.text.content}"
+                                                         required="true"
+                                                         style="width:100%;"/>
+                                    </p:inplace>
+                                </c:when>
+                                <c:otherwise>
+                                    <h:outputText styleClass="text-justify" style="display: flex"
+                                                  value="#{postView.post.text.content}"/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
-                </div>
-                <div class="pull-right" style="display:inline; color:#878787; margin-top: 25px;">
-                    <h:outputText value="21:54 5 September, 2017"/>
-                </div>
-                <div style="margin-top: 15px;">
-                    <h:outputLabel value="Gallery"/>
-                    <p:galleria value="#{imagesView.images}" var="image" panelWidth="500" panelHeight="313"
-                                showCaption="true">
-                        <p:graphicImage name="/resources/img/#{image}" alt="Image Description for #{image}"
-                                        title="#{image}"/>
-                    </p:galleria>
-                </div>
-
-                <div style="margin-top: 15px;margin-bottom: 10px;">
-                    <h:outputText value="Comments(5)"/>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <div class="col-sm-2 text-center" style="display: block">
-                        <b:image value="/resources/img/user.png" width="48px" style="display:block; margin:auto"/>
-                        <h:outputText value="Natasha Kovalenko" style="font-size: 12px;"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <b:panel>
+                    <div style="display: inline;">
+                        <div style="display: inline-block; width:32px; margin-right:10px; vertical-align:middle">
+                            <b:image width="32px" value="/resources/img/user.png"/>
+                        </div>
+                        <div style="display: inline-block; vertical-align:middle; font-size: 12px; margin-top: 15px;">
                             <div>
-                                <h:outputText value="Lorem ipsum lorem pipsum"/>
+                                <h:outputText value="#{postView.post.user.firstName} #{postView.post.user.lastName}"
+                                              style="font-weight: bold"/>
                             </div>
-                        </b:panel>
-                    </div>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <div class="col-sm-2 text-center" style="display: block">
-                        <b:image value="/resources/img/user.png" width="48px" style="display:block; margin:auto"/>
-                        <h:outputText value="Natasha Kovalenko" style="font-size: 12px;"/>
-                    </div>
-                    <div class="col-sm-10">
-                        <b:panel>
                             <div>
-                                <h:outputText value="Lorem ipsum lorem pipsum"/>
+                                <b:navLink value="@#{postView.post.user.username}"
+                                           href="profile?id=#{postView.post.user.userId}"/>
                             </div>
-                        </b:panel>
+                        </div>
                     </div>
-                </div>
-
-                <h:form>
+                    <div class="pull-right" style="display:inline; color:#878787; margin-top: 25px;">
+                        <h:outputText value="#{postView.post.dateTime}"/>
+                    </div>
                     <div style="margin-top: 15px;">
-                        <h:outputText value="Add Comment"/>
-                        <b:inputTextarea placeholder="Write your comment"/>
-                        <b:commandButton styleClass="pull-right" value="Send" look="primary" style="background:#60b0f4; border:0px;"/>
+                        <h:outputLabel value="Gallery"/>
+                        <p:galleria value="#{postView.images}" var="image" panelWidth="500" panelHeight="313"
+                                    showCaption="true">
+                            <p:graphicImage name="img/#{image}" alt="#{postView.post.title}"
+                                            style="height:100%; width:auto;"
+                                            title="#{image}"/>
+                        </p:galleria>
                     </div>
-                </h:form>
-            </b:container>
 
-        </b:panel>
-
+                    <h:panelGroup layout="block" id="chat">
+                        <div style="margin-top: 15px;margin-bottom: 10px;">
+                            <h:outputText value="Comments(#{postView.messages.size()})"/>
+                        </div>
+                        <c:choose>
+                            <c:when test="#{postView.messages.size()==0}">
+                                <h:outputText value="No comments yet"/>
+                            </c:when>
+                            <c:otherwise>
+                                <div>
+                                    <c:forEach var="comment"
+                                               varStatus="status"
+                                               items="#{postView.messages}">
+                                        <div class="container-fluid" style="margin-bottom: 10px;">
+                                            <div class="col-sm-2 text-center" style="display: block">
+                                                <b:image value="/resources/img/user.png" width="48px"
+                                                         style="display:block; margin:auto"/>
+                                                <h:outputText value="#{comment.userName}" style="font-size: 12px;"/>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <b:panel>
+                                                    <div>
+                                                        <h:outputText value="#{comment.text}"/>
+                                                    </div>
+                                                </b:panel>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                        <h:panelGroup layout="block" style="margin-top: 15px;" rendered="#{loginView.logged}">
+                            <h:outputText value="Add Comment"/>
+                            <b:inputTextarea value="#{postView.newMessage}" placeholder="Write your comment"/>
+                            <b:commandButton styleClass="pull-right" value="Send" look="primary"
+                                             style="background:#60b0f4; border:0;"
+                                             actionListener="#{postView.addMessage}"
+                                             ajax="true"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </b:container>
+            </b:panel>
+        </h:form>
+        <p:socket channel="/chat/#{postView.post.postId}">
+            <p:ajax event="message" update="postForm:chat"/>
+        </p:socket>
     </ui:define>
 </ui:composition>
 

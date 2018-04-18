@@ -1,8 +1,25 @@
-.logo-brand{
+.logo-brand {
     padding: 9px 24px 9px 0;
 }
 
-.logo{
+.logo {
     height: 32px;
     margin-right: 100px;
+}
+
+#postForm span .ui-inplace-content {
+    width: 100%;
+}
+
+div.navbar form a.commandLink {
+    color: #9d9d9d !important;
+    text-decoration: none;
+}
+
+div.navbar form a.commandLink:hover {
+    color: #fff !important;
+}
+
+.navbar-form {
+    margin-top: 15px !important;
 }

@@ -35,7 +35,6 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-
     @Transactional
     public PostDto getPostById(Integer id) {
         Post post = dao.getPostById(id);
@@ -43,9 +42,10 @@ public class PostService {
     }
 
     @Transactional
-    public void addPost(PostDto postDto) {
+    public Integer addPost(PostDto postDto) {
         Post post = mapper.postDtoToPost(postDto);
         dao.addPost(post);
+        return post.getPostId();
     }
 
     @Transactional

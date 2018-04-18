@@ -53,9 +53,27 @@ public class UserController {
     @RequestMapping(value = "/{userId}/posts", method = RequestMethod.GET)
     @ResponseBody
     public List<PostDto> getAllPostsByUserId(@PathVariable("userId") Integer id) {
-        List<PostDto> posts = postService.getAllPostsByUserId(id);
-        if (posts == null || posts.isEmpty())
-            throw new DataNotFoundException();
-        return posts;
+        if (id == null || id < 0) throw new BadRequestException();
+        return postService.getAllPostsByUserId(id);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@RequestBody UserDto userDto) {
+        if (userDto == null) throw new BadRequestException();
+        userService.addUser(userDto);
+    }
+
+    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
+    public void updatePost(@PathVariable("userId") Integer id, @RequestBody UserDto userDto) {
+        if (id == null || id < 0) throw new BadRequestException();
+        if (userDto == null) throw new BadRequestException();
+        userService.updateUser(userDto);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public UserDto login(@RequestBody UserDto userDto) {
+        if (userDto == null) throw new BadRequestException();
+        return userService.login(userDto);
     }
 }

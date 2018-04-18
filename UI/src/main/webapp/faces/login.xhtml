@@ -2,18 +2,23 @@
         template="default/content.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-        xmlns:h="http://java.sun.com/jsf/html">
+        xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-
         <div class="col-sm-4 col-sm-offset-4"
              style="margin-top:100px; background: #f5fff8; border-radius: 10px; border: 1px solid #c6ffd8; box-shadow: 0 0 10px rgba(206, 206, 206, 0.5); padding:20px 50px 20px 50px;">
-
             <h:form id="login">
+                <p:growl widgetVar="growlWV" id="growl" showDetail="true"/>
                 <h4 style="color:#0770a7; font-weight: bold">Authorization</h4>
                 <div>
-                    <b:inputText placeholder="Username"/>
-                    <b:inputSecret placeholder="Password"/>
+                    <b:inputText placeholder="Username"
+                                 required="true"
+                                 value="#{loginView.user.username}"/>
+                    <b:inputSecret placeholder="Password"
+                                   required="true"
+                                   value="#{loginView.user.password}"/>
                     <b:commandButton value="Sign in" look="primary"
+                                     actionListener="#{loginView.login}"
+                                     update="@form"
                                      style="width:100%; background:#60b0f4; border:0px;"/>
                     <div class="text-center" style="margin-top:5px; font-size:12px;">
                         <b:navLink value="Doesn't have account yet?" href="/faces/registration.xhtml"/>

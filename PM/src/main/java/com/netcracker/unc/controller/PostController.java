@@ -49,17 +49,15 @@ public class PostController {
     public List<MessageDto> getAllMessagesByPostId(@PathVariable("postId") Integer id) {
         if (id == null || id < 0) throw new BadRequestException();
         List<MessageDto> messages = messageService.getAllMessagesByPostId(id);
-        if (messages == null || messages.isEmpty())
-            throw new DataNotFoundException();
         return messages;
     }
 
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPost(@RequestBody PostDto postDto) {
+    public PostDto createPost(@RequestBody PostDto postDto) {
         if (postDto == null) throw new BadRequestException();
-        postService.addPost(postDto);
+        Integer postId = postService.addPost(postDto);
+        return postService.getPostById(postId);
     }
 
     @RequestMapping(value = "/{postId}", method = RequestMethod.PUT)

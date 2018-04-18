@@ -1,5 +1,6 @@
 package dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MessageDto {
@@ -8,7 +9,7 @@ public class MessageDto {
     private Integer userId;
     private String userName;
     private String text;
-    private Date dateTime;
+    private String dateTime;
 
     public MessageDto() {
     }
@@ -19,7 +20,8 @@ public class MessageDto {
         this.userId = userId;
         this.userName = userName;
         this.text = text;
-        this.dateTime = dateTime;
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        this.dateTime = dt.format(dateTime);
     }
 
     public MessageDto(Integer messageId, Integer postId, Integer userId, String text, Date dateTime) {
@@ -27,7 +29,8 @@ public class MessageDto {
         this.postId = postId;
         this.userId = userId;
         this.text = text;
-        this.dateTime = dateTime;
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        this.dateTime = dt.format(dateTime);
     }
 
     public MessageDto(Integer postId, Integer userId, String text) {
@@ -40,7 +43,8 @@ public class MessageDto {
         this.postId = postId;
         this.userId = userId;
         this.text = text;
-        this.dateTime = dateTime;
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        this.dateTime = dt.format(dateTime);
     }
 
     public Integer getMessageId() {
@@ -83,12 +87,13 @@ public class MessageDto {
         this.text = text;
     }
 
-    public Date getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
     public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        this.dateTime = dt.format(dateTime);
     }
 
     @Override

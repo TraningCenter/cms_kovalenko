@@ -128,7 +128,7 @@
                 <configuration>
                     <user>postgres</user>
                     <password>root</password>
-                    <url>jdbc:postgresql://localhost:5432/pm</url>
+                    <url>jdbc:postgresql://localhost:5432/cm_kovalenko</url>
                     <locations>
                         <location>filesystem:src/main/resources/sql/</location>
                     </locations>

@@ -9,7 +9,9 @@
         </div>
         <c:choose>
             <c:when test="#{listView.allPosts.size()==0}">
-                <h:outputText value="No posts"/>
+                <div class="container">
+                    <h:outputText value="No posts"/>
+                </div>
             </c:when>
             <c:otherwise>
                 <c:forEach var="post"
@@ -27,22 +29,16 @@
                                                   style="font-weight: bold"/>
                                 </div>
                                 <div>
-                                    <b:navLink value="@#{post.user.username}" href="#"/>
+                                    <b:navLink value="@#{post.user.username}" href="profile?id=#{post.user.userId}"/>
                                 </div>
                             </div>
                             <div class="block" style="margin-top: 15px">
-                                <div style="margin-bottom: 5px;"><b:navLink value="#{post.title}" href="#"
-                                                                            style="font-weight:bold; color:#2b5e7f; font-size:17px; text-decoration:none"/>
+                                <div style="margin-bottom: 5px;">
+                                    <b:navLink value="#{post.title}" href="post?id=#{post.postId}"
+                                               style="font-weight:bold; color:#2b5e7f; font-size:17px; text-decoration:none"/>
                                 </div>
                                 <h:outputText styleClass="text-justify" style="display: flex;"
-                                              value="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                                  an unknown printer took a galley of type and scrambled it to make a type specimen
-                                  book. It has survived not only five centuries, but also the leap into electronic
-                                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                                  the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                  with desktop publishing software like Aldus PageMaker including versions of Lorem
-                                  Ipsum."/>
+                                              value="#{post.text.content}"/>
                             </div>
 
                             <div style="margin-top: 10px; color:#878787">
@@ -52,7 +48,8 @@
                                 </div>
                                 <div class="pull-right" style="display: inline">
                                     <b:iconAwesome name="fa-comment"/>
-                                    <b:navLink value=" Comments(0)" href="#" style="text-decoration:none;"/>
+                                    <b:navLink value=" Comments(0)" href="post?id=#{post.postId}"
+                                               style="text-decoration:none;"/>
                                 </div>
                             </div>
                         </b:container>

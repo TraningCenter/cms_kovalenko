@@ -20,7 +20,7 @@ public interface PostDao {
     })
     Post getPostById(Integer id);
 
-    @Select("select * from posts")
+    @Select("select * from posts order by post_id desc")
     @Results({
             @Result(property = "postId", column = "post_id"),
             @Result(property = "userId", column = "user_id"),
@@ -41,7 +41,8 @@ public interface PostDao {
     List<Post> getAllPostsByUserId(Integer userId);
 
     @Insert("insert into posts(user_id, title, text_id, pictures_id) values(#{userId}, #{title}, #{textId}, #{picturesId}) ")
-    void addPost(Post post);
+    @Options(useGeneratedKeys = true, keyProperty = "postId", keyColumn = "post_id")
+    Integer addPost(Post post);
 
     @Update("update posts set title=#{title}, text_id=#{textId}, pictures_id=#{picturesId} where post_id=#{postId}")
     void updatePost(Post post);

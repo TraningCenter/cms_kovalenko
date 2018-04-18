@@ -52,6 +52,17 @@ public class PostDto {
         this.textId = textId;
     }
 
+    public PostDto(FullPost fullPost) {
+        this.postId = fullPost.getPostId();
+        this.title = fullPost.getTitle();
+        this.user = fullPost.getUser();
+        if (fullPost.getPictures() != null) {
+            this.picturesId = new ArrayList<>();
+            fullPost.getPictures().forEach(elem -> picturesId.add(elem.getContentId()));
+        }
+        this.textId = fullPost.getText().getContentId();
+    }
+
     public Integer getPostId() {
         return postId;
     }

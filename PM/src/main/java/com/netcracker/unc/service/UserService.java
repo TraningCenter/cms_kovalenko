@@ -55,4 +55,13 @@ public class UserService {
     public void deleteUser(Integer id) {
         dao.deleteUser(id);
     }
+
+    @Transactional
+    public UserDto login(UserDto userDto) {
+        User user = dao.getUserByUsername(userDto.getUsername());
+        if (user != null && userDto.getPassword().equals(user.getPassword())) {
+            return mapper.userToUserDto(user);
+        }
+        return null;
+    }
 }

@@ -18,7 +18,7 @@ CREATE TABLE posts (
   post_id    INTEGER NOT NULL DEFAULT nextval('posts_id_seq'),
   title      VARCHAR NOT NULL,
   user_id    INTEGER NOT NULL,
-  text_id    INTEGER NOT NULL,
+  text_id    INTEGER,
   pictures_id VARCHAR,
   date_time TIMESTAMP DEFAULT NOW(),
   CONSTRAINT post_pk PRIMARY KEY (post_id)

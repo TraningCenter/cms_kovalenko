@@ -13,7 +13,7 @@ public class ContentDao extends GenericDao<Content, Integer> {
     }
 
     public List<Content> getAllByPostId(Integer postId) {
-        return getManager().createQuery("select c from Content c where c.postId=:postId")
+        return getManager().createQuery("select c from Content c where c.postId=:postId order by c.contentId")
                 .setParameter("postId", postId)
                 .getResultList();
     }
